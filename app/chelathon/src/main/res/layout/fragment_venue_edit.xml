@@ -71,8 +71,8 @@
                 android:hint="Address Line 2" />
         </android.support.design.widget.TextInputLayout>
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map_View"
+        <ImageView
+            android:id="@+id/map_image_view"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_alignEnd="@+id/address_2_text_input_layout"
@@ -87,14 +87,14 @@
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/map_View"
-            android:layout_alignLeft="@+id/map_View"
-            android:layout_alignRight="@+id/map_View"
-            android:layout_alignStart="@+id/map_View"
-            android:layout_below="@+id/map_View"
+            android:layout_alignEnd="@+id/map_image_view"
+            android:layout_alignLeft="@+id/map_image_view"
+            android:layout_alignRight="@+id/map_image_view"
+            android:layout_alignStart="@+id/map_image_view"
+            android:layout_below="@+id/map_image_view"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="Save" />
+            android:text="@string/button_save" />
 
     </RelativeLayout>
 
