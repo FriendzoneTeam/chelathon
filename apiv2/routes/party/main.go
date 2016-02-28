@@ -88,3 +88,7 @@ func GetParties(c *gin.Context) {
 func UpdateParty(c *gin.Context){
 	c.Query
 }
+
+func PanicParty(c *gin.Context) {
+	
+}
