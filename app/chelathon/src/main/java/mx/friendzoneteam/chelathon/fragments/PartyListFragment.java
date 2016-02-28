@@ -29,6 +29,14 @@ public class PartyListFragment extends Fragment implements LoaderManager.LoaderC
 
     private PartyListAdapter partyListAdapter;
 
+    public PartyListFragment() {
+        // Required empty public constructor
+    }
+
+    public static PartyListFragment newInstance() {
+        return new PartyListFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

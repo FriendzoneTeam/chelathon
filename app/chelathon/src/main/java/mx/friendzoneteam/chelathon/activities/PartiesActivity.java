@@ -16,7 +16,7 @@ public class PartiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parties);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.content, new PartyListFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.content, PartyListFragment.newInstance()).commit();
         }
     }
 }
