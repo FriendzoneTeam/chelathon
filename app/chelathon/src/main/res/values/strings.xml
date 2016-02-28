@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Chelathon</string>
+    <string name="drawer_item_parties_title">Parties</string>
+    <string name="drawer_item_venues_title">Venues</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
