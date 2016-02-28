@@ -9,8 +9,8 @@
       "id": 42,
       "name": "Party",
       "location": {
-        "lat": 19.39068,
-        "long": -99.2837
+        "latitude": 19.39068,
+        "longitude": -99.2837
       }
     }
   ]
