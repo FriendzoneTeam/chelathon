@@ -7,7 +7,7 @@ package mx.friendzoneteam.chelathon.entity;
 
 import java.util.Calendar;
 import java.util.Date;
-
+import mx.friendzoneteam.chelathon.entity.Location;
 
 
 /**
@@ -59,29 +59,6 @@ public class Party {
 
     public void setCover(float cover) {
         this.cover = cover;
-    }
-
-    
-}
-
-class Location{
-    private long latitude;
-    private long longitude;
-
-    public long getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
-    }
-
-    public long getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(long longitude) {
-        this.longitude = longitude;
     }
 
     
