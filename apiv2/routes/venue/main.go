@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
 	"encoding/json"
+	"strconv"
 )
 
 func AddVenue(c *gin.Context) {
@@ -65,7 +66,54 @@ func AddVenue(c *gin.Context) {
 }
 
 func GetVenues(c *gin.Context) {
-	Parties := make([]models.Venue, 0)
+	db, err := sql.Open("sqlite3", "./app.db")
+  	if err != nil {
+ 		log.Fatal(err)
+  	}
+ 	defer db.Close()
 
-	c.JSON(200, Parties)
+ 	sqlStmt := `
+	CREATE TABLE IF NOT EXISTS venues (id integer not null primary key, name text, location text, dir1 text, dir2 text, id_owner integer, id_party integer);
+	`
+ 
+ 	_, err = db.Exec(sqlStmt)
+  	if err != nil {
+ 		log.Printf("%q: %s\n", err, sqlStmt)
+ 		return
+  	}
+  
+ 	rows, err := db.Query("select id, name, location, location, dir1, dir2, id_owner, id_party from parties")
+  	if err != nil {
+ 		log.Fatal(err)
+ 	}
+ 	defer rows.Close()
+
+	venues := make([]models.Venue, 0)
+	for rows.Next() {
+ 		var id int
+ 		var name string
+ 		var location string
+ 		var dir1 string
+ 		var dir2 string
+ 		var id_owner int
+ 		var id_party int
+ 
+ 		rows.Scan(&id, &name, &location, &dir1, &dir2, &id_owner, &id_party)
+ 		var locations models.Locations
+ 		err := json.Unmarshal([]byte(location), &locations)
+ 		if err != nil {
+ 	        panic(err)
+ 	    }
+ 		var reg models.Venue
+ 		reg.Id = id
+ 		reg.Name = name
+ 		reg.Location = locations
+ 		reg.Dir1 = dir1
+ 		reg.Dir2 = dir2
+ 		reg.Id_owner = int64(id_owner)
+ 		reg.Id_party = int64(id_party)
+ 		venues = append(venues, reg)
+  	}
+
+	c.JSON(200, venues)
 }
