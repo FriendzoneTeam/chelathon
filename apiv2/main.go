@@ -13,11 +13,7 @@ func main() {
 
 	r.GET("/parties", Party.GetParties)
     r.POST("/parties", Party.AddParty)
-
-    r.PUT("/parties", nil )
-	r.POST("/parties/:idp/panic", nil)
-	r.POST("/parties/:idp/pool", nil)
-	r.GET("/parties/:idp/pool", nil)
+    r.PUT("/parties/:idp", nil )
 
     r.POST("/venues", Venue.AddVenue)
     r.GET("/venues", Venue.GetVenues)
@@ -31,6 +27,7 @@ func main() {
 	r.POST("/parties/:idp/pool",nil);
 	r.GET("/parties/:idp/pool",nil);   
 
+	
     // Persons
     //r.POST("/persons", Person.AddPerson)
     //r.GET("/persons", Person.GetPersons)
