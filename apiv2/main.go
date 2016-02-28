@@ -21,13 +21,22 @@ func main() {
 
     r.POST("/venues", Venue.AddVenue)
     r.GET("/venues", Venue.GetVenues)
+    r.PUT("/venues",nil);
+
+    r.GET("/parties/:idp/guest",nil)
+    r.PUT("/parties/:idp/guest/auth",nil)
+    r.POST("/parties/:idp/rsvp",nil);
+
+	r.POST("/parties/:idp/panic",nil); 
+	r.POST("/parties/:idp/pool",nil);
+	r.GET("/parties/:idp/pool",nil);   
 
     // Persons
-    r.POST("/persons", Person.AddPerson)
-    r.GET("/persons", Person.GetPersons)
+    //r.POST("/persons", Person.AddPerson)
+    //r.GET("/persons", Person.GetPersons)
 
     // Pool
-    r.POST("/pools", Pool.AddPool)
-    r.GET("/pools", Pool.GetPools)
+    //r.POST("/pools", Pool.AddPool)
+    //r.GET("/pools", Pool.GetPools)
     r.Run()
 }
