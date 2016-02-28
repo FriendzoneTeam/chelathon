@@ -30,7 +30,7 @@ func AddVenue(c *gin.Context) {
 	dir2 := c.PostForm("dir2")
 	id_o := c.PostForm("id_owner")
 	id_owner, _ := strconv.ParseInt(id_o,10, 64)
-	id_p := c.PostForm("id_owner")
+	id_p := c.PostForm("id_party")
 	id_party, _ := strconv.ParseInt(id_p,10, 64)
 
 	// Scheduler
