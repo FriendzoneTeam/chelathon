@@ -41,6 +41,10 @@ func AddParty(c *gin.Context) {
   
   	// Parametros del POST
   	name := c.PostForm("name")
+ 	cvr := c.PostForm("cover")
+ 	cover, _ := strconv.ParseFloat(cvr, 64)
+ 	fecha := c.PostForm("fecha")
+ 	lat := c.PostForm("latitude")
   	latitude, _ := strconv.ParseInt(lat, 10, 64)
   	lng := c.PostForm("longitude")
   	longitude, _ := strconv.ParseInt(lng, 10, 64)
@@ -116,7 +120,7 @@ func AddParty(c *gin.Context) {
 func UpdateParty(c *gin.Context){
 
 	idpS := c.Params.ByName("id")
-	idp := strconv.Atoi(idpS)
+	idp,_ := strconv.Atoi(idpS)
 
 
 	name := c.PostForm("name")
