@@ -13,7 +13,7 @@ func main() {
 
 	r.GET("/parties", Party.GetParties)
     r.POST("/parties", Party.AddParty)
-    r.PUT("/parties/:idp", nil )
+    r.PUT("/parties/:idp", Party.UpdateParty )
 
     r.POST("/venues", Venue.AddVenue)
     r.GET("/venues", Venue.GetVenues)
