@@ -54,7 +54,11 @@ func AddParty(c *gin.Context) {
 	reg.Name = name
 	reg.Cover = cover
 	reg.Fecha = fecha
-	b, err := json.Marshal(models.Locations{Longitude: longitude, Latitude: latitude})
+	var locs models.Locations
+	locs.Longitude = longitude
+	locs.Latitude = latitude
+	reg.Location = locs
+	b, err := json.Marshal(locs)
 
 	_, err = stmt.Exec(name, string(b), cvr, fecha)
 	if err != nil {

@@ -5,53 +5,99 @@ import (
 	"strconv"
 	"github.com/gin-gonic/gin"
 	"chelathon/apiv2/models"
-	"upper.io/db.v2"
-	"upper.io/db.v2/mongo"
+	"database/sql"
+	_ "github.com/mattn/go-sqlite3"
 )
-//Setting de la coneccion a mongo
-var settings = mongo.ConnectionURL {
-	Address:  db.Host("ds049945.mongolab.com:49945"), // MongoDB hostname.
-	Database: "socialgopher",                         // Database name.
-	User:     "friendzonedb",                         // Optional user name.
-	Password: "friendzonedb",                         // Optional user password.
-}
 
 func AddPool(c *gin.Context) {
-	// DB Conf
-	sess, err := db.Open(mongo.Adapter, settings)
+	
+
+	db, err := sql.Open("sqlite3", "./app.db")
 	if err != nil {
-		log.Fatalf("db.Open(): %q\n", err)
+		log.Fatal(err)
 	}
-	defer sess.Close()
+	defer db.Close()
+
+	sqlStmt := `
+	CREATE TABLE IF NOT EXISTS pools (id integer not null primary key, id_user integer, cuota numeric, id_party integer);
+	`
+
+	_, err = db.Exec(sqlStmt)
+	if err != nil {
+		log.Printf("%q: %s\n", err, sqlStmt)
+		return
+	}
+
+	tx, err := db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	stmt, err := tx.Prepare("insert into pools(id_user, cuota, id_party) values(?, ?, ?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
 
 	// Parametros del POST
 	idUser := c.PostForm("id_user")
-	id_user, _ := strconv.ParseInt(lat, 10, 64)
+	id_user, _ := strconv.ParseInt(idUser, 10, 64)
+	cta := c.PostForm("cuota")
+	cuota, _ := strconv.ParseFloat(cta, 64)
+	idParty := c.PostForm("id_user")
+	id_party, _ := strconv.ParseInt(idParty, 10, 64)
+	
+	// Nuestro nuevo registro 
+	reg := new(models.Pool)
+	reg.Id_user = id_user
+	reg.Cuota = cuota
+	reg.Id_party = id_party
 
-	cvr := c.PostForm("cover")
-	cover, _ := strconv.ParseFloat(cvr, 64)
+	_, err = stmt.Exec(id_user, cuota, id_party)
+	if err != nil {
+		log.Fatal(err)
+	}
+    tx.Commit()
 
-	c.JSON(200, interface{})
+	c.JSON(200, reg)
 }
 
-func GetPools (c *gin.Context) {
-	// DB Conf
-	sess, err := db.Open(mongo.Adapter, settings)
+func GetPools(c *gin.Context) {
+	db, err := sql.Open("sqlite3", "./app.db")
 	if err != nil {
-		log.Fatalf("db.Open(): %q\n", err)
+		log.Fatal(err)
 	}
-	defer sess.Close()
+	defer db.Close()
 
-	// Consulta 
+	sqlStmt := `
+	CREATE TABLE IF NOT EXISTS pools (id integer not null primary key, id_user integer, cuota numeric, id_party integer);
+	`
+
+	_, err = db.Exec(sqlStmt)
+	if err != nil {
+		log.Printf("%q: %s\n", err, sqlStmt)
+		return
+	}
+
+	rows, err := db.Query("select id, id_user, cuota, id_party from pools")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
 	pools := make([]models.Pool, 0)
-	poolCollection, err := sess.Collection("pools")
-	if err != nil {
-		log.Fatalf("sess.Collection(): %q\n", err)
-	}
+	for rows.Next() {
+		var id int
+		var id_user int64
+		var cuota float64
+		var id_party int64
 
-	err = poolCollection.Find().All(&pools)
-	if err != nil {
-		log.Fatalf("Find(): %q\n", err)
+		rows.Scan(&id, &id_user, &cuota, &id_party)
+		var reg models.Pool
+		reg.Id = id
+		reg.Id_user = id_user
+		reg.Cuota = cuota
+		reg.Id_party = id_party
+		pools = append(pools, reg)
 	}
 
 	c.JSON(200, pools)

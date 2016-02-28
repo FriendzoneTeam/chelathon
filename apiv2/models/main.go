@@ -29,7 +29,8 @@ type Person struct {
 }
 
 type Pool struct {
-	Id_user int `json:"id_user" bson:"id_user"`
+	Id int `json:"id"`
+	Id_user int64 `json:"id_user" bson:"id_user"`
 	Cuota	float64 `json:"cuota" bson:"cuota"`
-	Id_party int `json:"id_party" bson:"id_party"`
+	Id_party int64 `json:"id_party" bson:"id_party"`
 }
