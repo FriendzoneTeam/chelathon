@@ -2,27 +2,39 @@ package routes
 
 import (
 	"log"
-	"strconv"
 	"github.com/gin-gonic/gin"
 	"chelathon/apiv2/models"
-	"upper.io/db.v2"
-	"upper.io/db.v2/mongo"
+	"database/sql"
+	_ "github.com/mattn/go-sqlite3"
+	"encoding/json"
 )
 
-//Setting de la coneccion a mongo
-	var settings = mongo.ConnectionURL {
-		Address:  db.Host("ds049945.mongolab.com:49945"), // MongoDB hostname.
-		Database: "socialgopher",                         // Database name.
-		User:     "friendzonedb",                         // Optional user name.
-		Password: "friendzonedb",                         // Optional user password.
+func AddVenue(c *gin.Context) {
+	db, err := sql.Open("sqlite3", "./app.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	sqlStmt := `
+	CREATE TABLE IF NOT EXISTS venues (id integer not null primary key, name text, location text, dir1 text, dir2 text, id_owner integer, id_party integer);
+	`
+
+	_, err = db.Exec(sqlStmt)
+	if err != nil {
+		log.Printf("%q: %s\n", err, sqlStmt)
+		return
 	}
 
-func AddVenue(c *gin.Context) {
-	sess, err := db.Open(mongo.Adapter, settings)
+	tx, err := db.Begin()
 	if err != nil {
-		log.Fatalf("db.Open(): %q\n", err)
+		log.Fatal(err)
 	}
-	defer sess.Close()
+	stmt, err := tx.Prepare("insert into venues(name, location, dir1, dir2, id_owner, id_party) values(?, ?, ?, ?, ? ,?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
 
 	// Parametros del POST
 	name := c.PostForm("name")
@@ -32,24 +44,24 @@ func AddVenue(c *gin.Context) {
 	id_owner, _ := strconv.ParseInt(id_o,10, 64)
 	id_p := c.PostForm("id_party")
 	id_party, _ := strconv.ParseInt(id_p,10, 64)
-
-	// Scheduler
-	venueCollection, err := sess.Collection("venues")
-	if err != nil {
-		log.Fatalf("Could not use collection: %q\n", err)
-	}
 	
 	// Nuestro nuevo registro 
 	reg := new(models.Venue)
 	reg.Name = name
-	reg.Location = models.Locations{}
+	var locs models.Locations
+	b, _ := json.Marshal(locs)
+	reg.Location = locs
 	reg.Dir1 = dir1
 	reg.Dir2 = dir2
 	reg.Id_owner = id_owner
 	reg.Id_party = id_party
 
-	venueCollection.Append(reg)
-	c.JSON(200, reg)
+	_, err = stmt.Exec(name, string(b), dir1, dir2, id_owner, id_party)
+	if err != nil {
+		log.Fatal(err)
+	}
+    tx.Commit()
+	c.JSON(200, gin.H{"message": "Venue created"})
 }
 
 func GetVenues(c *gin.Context) {
