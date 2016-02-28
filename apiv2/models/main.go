@@ -32,13 +32,18 @@ type Venue struct {
 }
 
 type Person struct {
-	Id int
-	Nombre string
-	Foto string
+	Id bson.ObjectId `json:"id" bson:"_id"`
+	Nombre string `json:"nombre" bson:"nombre"`
+	Foto string `json:"foto" bson:"foto"`
+}
+
+func (person *Person) SetID(id bson.ObjectId) error {
+	person.Id = id
+	return nil
 }
 
 type Pool struct {
-	Id_user int
-	Cuota	float64
-	id_party int
+	Id_user bson.ObjectId `json:"id_user" bson:"id_user"`
+	Cuota	float64 `json:"cuota" bson:"cuota"`
+	Id_party bson.ObjectId `json:"id_party" bson:"id_party"`
 }
