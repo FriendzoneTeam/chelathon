@@ -12,6 +12,7 @@ import mx.friendzoneteam.chelathon.dao.PartysDAO;
 import mx.friendzoneteam.chelathon.entity.Party;
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.put;
 
 
 /**
@@ -30,16 +31,34 @@ public class Rutas {
             //System.out.println(req.queryParams("name"));
             String name=req.queryParams("name");
             Party p=PartysDAO.addParty(name);
-                        
+            
             return p;
         },new JsonTransformer());
         
+        put("/parties/:id", (req, res) -> {
+            //System.out.println(req.queryParams("name"));
+            String name=req.queryParams("name");
+            long id_party=Long.parseLong(req.params(":id"));
+            Party p=new Party();
+            p.setName(name);
+            PartysDAO.updateParty(id_party,p);
+            return p;
+        },new JsonTransformer());
+        
+        //Obtener lista de parties
         get("/parties",(req,res) -> {
             List<Party> lista= PartysDAO.allPartys();
             HashMap<String,Object> respuesta = new HashMap<>();
             respuesta.put("parties", lista);
+            res.type("application/json");
             return respuesta;
         },new JsonTransformer());
+        
+        //Post venue
+        
+        //GET Venue //Lista de Lugares
+        
+        //POST /party/venue
         
     }
 

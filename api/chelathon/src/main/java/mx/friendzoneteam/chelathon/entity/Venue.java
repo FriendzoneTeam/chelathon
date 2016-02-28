@@ -31,7 +31,7 @@ public class Venue {
     }
 
     public void setDir(String dir) {
-        this.dir = dir
+        //this.dir = dir
     }
 
     public String getDir2() {

@@ -15,42 +15,30 @@ import mx.friendzoneteam.chelathon.entity.Location;
  * @author rk521
  */
 public class Party {
-    
+
     private long id;
     private String name;
-    private Location location;
+    private Venue venue;
     private float cover;
     private Date date;
 
     public Party(String nombre) {
         this.name = nombre;
         this.date = Calendar.getInstance().getTime();
-        this.location = new Location();
+        //this.location = new Location();
+
+    }
+
+    public Party() {
         
     }
-    
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getLatitude() {
-        return location.getLatitude();
-    }
-
-    public void setLatitude(long latitud) {
-        this.location.setLatitude(latitud);
-    }
-
-    public long getLongitude() {
-        return location.getLongitude();
-    }
-
-    public void setLongitude(long longitud) {
-        this.location.setLongitude(longitud);
     }
 
     public float getCover() {
@@ -61,5 +49,30 @@ public class Party {
         this.cover = cover;
     }
 
-    
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
 }
+

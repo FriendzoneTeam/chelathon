@@ -26,5 +26,10 @@ public class PartysDAO {
         List<Party> lista=DB.getPartys();        
         return lista;
     }
+
+    
+    public static void updateParty(long id_party, Party p) {
+        DB.updateParty(id_party,p);
+    }
     
 }
