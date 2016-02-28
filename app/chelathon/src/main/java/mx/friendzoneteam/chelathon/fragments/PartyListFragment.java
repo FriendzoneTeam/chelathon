@@ -1,4 +1,4 @@
-package mx.friendzoneteam.chelathon;
+package mx.friendzoneteam.chelathon.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +15,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import mx.friendzoneteam.chelathon.loaders.PartyListLoader;
+import mx.friendzoneteam.chelathon.R;
+import mx.friendzoneteam.chelathon.adapters.PartyListAdapter;
+import mx.friendzoneteam.chelathon.model.Party;
 
 /**
  * Created by gianpa on 2/27/16.

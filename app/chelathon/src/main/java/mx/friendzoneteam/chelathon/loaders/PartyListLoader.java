@@ -1,4 +1,4 @@
-package mx.friendzoneteam.chelathon;
+package mx.friendzoneteam.chelathon.loaders;
 
 import android.content.Context;
 import android.support.v4.content.Loader;
@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mx.friendzoneteam.chelathon.model.Party;
 
 /**
  * Created by gianpa on 2/27/16.
@@ -37,7 +39,6 @@ public class PartyListLoader extends Loader<List<Party>> {
         Party party = new Party();
         party.id = 42;
         party.name = "Party";
-        party.location = new Location(19.39068, -99.2837);
         partyList.add(party);
 
         if(isStarted()) {

@@ -1,4 +1,4 @@
-package mx.friendzoneteam.chelathon;
+package mx.friendzoneteam.chelathon.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import mx.friendzoneteam.chelathon.R;
+import mx.friendzoneteam.chelathon.model.Party;
 
 /**
  * Created by gianpa on 2/27/16.
