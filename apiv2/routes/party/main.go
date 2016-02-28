@@ -8,7 +8,7 @@ import (
 	"database/sql"
  	_ "github.com/mattn/go-sqlite3"
  	"encoding/json"
- 	"fmt"
+// 	"fmt"
 )
 
 func AddParty(c *gin.Context) {
