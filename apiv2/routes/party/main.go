@@ -2,6 +2,7 @@ package routes
 
 import (
 	"log"
+	"strconv"
 	"github.com/gin-gonic/gin"
 	"chelathon/apiv2/models"
 	"upper.io/db.v2"
@@ -27,6 +28,13 @@ func AddParty(c *gin.Context) {
 
 	// Parametros del POST
 	name := c.PostForm("name")
+	cvr := c.PostForm("cover")
+	cover, _ := strconv.ParseFloat(cvr, 64)
+	fecha := c.PostForm("fecha")
+	lat := c.PostForm("latitude")
+	latitude, _ := strconv.ParseInt(lat, 10, 64)
+	lng := c.PostForm("longitude")
+	longitude, _ := strconv.ParseInt(lng, 10, 64)
 
 	// Scheduler
 	partyCollection, err := sess.Collection("parties")
@@ -37,15 +45,33 @@ func AddParty(c *gin.Context) {
 	// Nuestro nuevo registro 
 	reg := new(models.Party)
 	reg.Name = name
-	reg.Fecha = "new Date()"
-	reg.Location = models.Locations{}
+	reg.Cover = cover
+	reg.Fecha = fecha
+	reg.Location = models.Locations{Longitude: longitude, Latitude: latitude}
 
 	partyCollection.Append(reg)
 	c.JSON(200, reg)
 }
 
 func GetParties(c *gin.Context) {
-	Parties := make([]models.Party, 0)
+	parties := make([]models.Party, 0)
 
-	c.JSON(200, Parties)
+	sess, err := db.Open(mongo.Adapter, settings)
+	if err != nil {
+		log.Fatalf("db.Open(): %q\n", err)
+	}
+
+	defer sess.Close()
+
+	partyCollection, err := sess.Collection("parties")
+	if err != nil {
+		log.Fatalf("sess.Collection(): %q\n", err)
+	}
+
+	err = partyCollection.Find().All(&parties)
+	if err != nil {
+		log.Fatalf("Find(): %q\n", err)
+	}
+
+	c.JSON(200, parties)
 }

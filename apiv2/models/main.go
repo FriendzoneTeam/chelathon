@@ -1,8 +1,8 @@
 package models
 
 type Locations struct{
-	Longitude int
-	Latitude int
+	Longitude int64
+	Latitude int64
 }
 
 type Party struct{

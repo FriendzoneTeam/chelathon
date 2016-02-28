@@ -9,5 +9,6 @@ func main() {
 	r := gin.Default()
 	
     r.POST("/parties", Party.AddParty)
+    r.GET("/parties", Party.GetParties)
     r.Run()
 }
