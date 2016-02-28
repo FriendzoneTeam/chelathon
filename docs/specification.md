@@ -1,6 +1,6 @@
 # Specification
 
-`GET /partys/`
+`GET /parties/`
 
 ```
 {
