@@ -6,9 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"chelathon/apiv2/models"
 	"database/sql"
- 	"github.com/mattn/go-sqlite3"
+ 	_ "github.com/mattn/go-sqlite3"
  	"encoding/json"
-	"strconv"
 )
 
 func AddParty(c *gin.Context) {
