@@ -1,7 +1,10 @@
 package mx.friendzoneteam.chelathon;
 
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,7 +13,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LoaderManager.LoaderCallbacks<List<Party>> {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private GoogleMap mMap;
 
@@ -21,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        getSupportLoaderManager().initLoader(0, null, this);
     }
 
 
@@ -41,5 +50,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public Loader<List<Party>> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "onCreateLoader");
+        return new PartyListLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Party>> loader, List<Party> data) {
+        for(Party party : data) {
+            Log.d(TAG, party.name);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Party>> loader) {
+
     }
 }
