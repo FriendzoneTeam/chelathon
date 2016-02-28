@@ -46,7 +46,6 @@ func AddParty(c *gin.Context) {
 	reg.Name = name
 	reg.Cover = cover
 	reg.Fecha = fecha
-<<<<<<< HEAD
 	var locs models.Locations
 	locs.Longitude = longitude
 	locs.Latitude = latitude
@@ -58,9 +57,6 @@ func AddParty(c *gin.Context) {
 		log.Fatal(err)
 	}
     tx.Commit()
-=======
-	reg.Location = models.Locations{Longitude: longitude, Latitude: latitude}
->>>>>>> 927d4ca0cd2fa083f181c0e8ebc315082a6de1ba
 
 	partyCollection.Append(reg)
 	c.JSON(200, reg)
