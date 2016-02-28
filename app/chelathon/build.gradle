@@ -22,6 +22,7 @@ android {
 dependencies {
     final SUPPORT_LIBRARY_VERSION = '23.2.0'
 
+    compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
     compile 'com.google.android.gms:play-services:8.4.0'
