@@ -82,7 +82,7 @@ func GetVenues(c *gin.Context) {
  		return
   	}
   
- 	rows, err := db.Query("select id, name, location, location, dir1, dir2, id_owner, id_party from parties")
+ 	rows, err := db.Query("select id, name, location, location, dir1, dir2, id_owner, id_party from venues")
   	if err != nil {
  		log.Fatal(err)
  	}

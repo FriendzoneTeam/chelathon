@@ -29,11 +29,11 @@ func main() {
 
 	
     // Persons
-    //r.POST("/persons", Person.AddPerson)
-    //r.GET("/persons", Person.GetPersons)
+    r.POST("/persons", Person.AddPerson)
+    r.GET("/persons", Person.GetPersons)
 
     // Pool
-    //r.POST("/pools", Pool.AddPool)
-    //r.GET("/pools", Pool.GetPools)
+    r.POST("/pools", Pool.AddPool)
+    r.GET("/pools", Pool.GetPools)
     r.Run()
 }
