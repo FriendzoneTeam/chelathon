@@ -8,6 +8,7 @@ import (
 	"database/sql"
  	_ "github.com/mattn/go-sqlite3"
  	"encoding/json"
+ 	"fmt"
 )
 
 func AddParty(c *gin.Context) {
@@ -82,7 +83,7 @@ func AddParty(c *gin.Context) {
  		log.Printf("%q: %s\n", err, sqlStmt)
  		return
   	}
-  
+  	
  	rows, err := db.Query("select id, name, location, cover, fecha from parties")
   	if err != nil {
  		log.Fatal(err)
@@ -117,7 +118,7 @@ func AddParty(c *gin.Context) {
  }
 
 func UpdateParty(c *gin.Context){
-
+/*
 	idpS := c.Params.ByName("id")
 	idp,_ := strconv.Atoi(idpS)
 
@@ -131,4 +132,39 @@ func UpdateParty(c *gin.Context){
 	lng := c.PostForm("longitude")
 	longitude, _ := strconv.ParseInt(lng, 10, 64)
 
+	db, err := sql.Open("sqlite3", "./app.db")
+	
+	("select id, name, location, cover, fecha from parties")
+	query := fmt.Sprintf("UPDATE parties SET name=%s where id = '%d'",idp)
+
+	rows, err := db.Query(query)
+
+  	if err != nil {
+ 		log.Fatal(err)
+ 	}
+ 	defer rows.Close()
+
+ 	//parties := make([]models.Party, 0)
+
+ 	var id int
+ 		var name string
+ 		var location string
+ 		var cover string
+ 		var fecha string
+ 
+ 		rows.Scan(&id, &name, &location, &cover, &fecha)
+ 		var locations models.Locations
+ 		err := json.Unmarshal([]byte(location), &locations)
+ 		if err != nil {
+ 	        panic(err)
+ 	    }
+ 		var reg models.Party
+ 		reg.Id = id
+ 		reg.Name = name
+ 		reg.Location = locations
+ 	    cvr, _ := strconv.ParseFloat(cover, 64)
+ 		reg.Cover = cvr
+ 		reg.Fecha = fecha
+ 		parties = append(parties, reg)
+*/
 }
