@@ -5,6 +5,9 @@
  */
 package mx.friendzoneteam.chelathon.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import mx.friendzoneteam.chelathon.db.DB;
 import mx.friendzoneteam.chelathon.entity.Party;
 
 /**
@@ -13,16 +16,15 @@ import mx.friendzoneteam.chelathon.entity.Party;
  */
 public class PartysDAO {
 
-    public static Party addParty() {
-        Party curr=new Party();
-        curr.setId(42);
+    public static Party addParty(String nombre) {
+        Party curr=new Party(nombre);
+        DB.addParty(curr);
         return curr;
     }
     
-    public static Party allPartys() {
-        Party curr=new Party();
-        curr.setId(42);
-        return curr;
+    public static List<Party> allPartys() {
+        List<Party> lista=DB.getPartys();        
+        return lista;
     }
     
 }

@@ -28,15 +28,15 @@ public class Rutas {
         //Agrega una party
         post("/partys", (req, res) -> {
             
-            Party p=PartysDAO.addParty();
+            Party p=PartysDAO.addParty("Chema");
                         
             return p;
         },new JsonTransformer());
         
         get("/partys",(req,res) -> {
-            List<Party> lista;
-            return "";
-        });
+            List<Party> lista= PartysDAO.allPartys();
+            return lista;
+        },new JsonTransformer());
         
     }
 

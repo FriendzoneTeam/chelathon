@@ -5,19 +5,31 @@
  */
 package mx.friendzoneteam.chelathon.entity;
 
+import java.util.Calendar;
 import java.util.Date;
+
+
 
 /**
  *
  * @author rk521
  */
 public class Party {
+    
     private long id;
+    private String nombre;
     private long latitud;
     private long longitud;
     private float cover;
     private Date fecha;
 
+    public Party(String nombre) {
+        this.nombre = nombre;
+        this.fecha = Calendar.getInstance().getTime();
+    }
+    
+    
+    
     public long getId() {
         return id;
     }
@@ -56,5 +68,13 @@ public class Party {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
