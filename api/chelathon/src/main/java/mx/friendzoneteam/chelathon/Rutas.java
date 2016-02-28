@@ -26,16 +26,22 @@ public class Rutas {
         //get("/partys",(req,res)-> "Indeex");
         
         //Agrega una party
-        post("/partys", (req, res) -> {
+        post("/parties", (req, res) -> {
+            System.out.println(req.contentType());
+            System.out.println(req.params());
+            System.out.println(req.raw());
+            System.out.println(req);
             
-            Party p=PartysDAO.addParty("Chema");
+            Party p=PartysDAO.addParty("ok");
                         
             return p;
         },new JsonTransformer());
         
-        get("/partys",(req,res) -> {
+        get("/parties",(req,res) -> {
             List<Party> lista= PartysDAO.allPartys();
-            return lista;
+            HashMap<String,Object> respuesta = new HashMap<>();
+            respuesta.put("parties", lista);
+            return respuesta;
         },new JsonTransformer());
         
     }

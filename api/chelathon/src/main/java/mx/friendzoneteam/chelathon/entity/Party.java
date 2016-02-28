@@ -17,18 +17,17 @@ import java.util.Date;
 public class Party {
     
     private long id;
-    private String nombre;
-    private long latitud;
-    private long longitud;
+    private String name;
+    private Location location;
     private float cover;
-    private Date fecha;
+    private Date date;
 
     public Party(String nombre) {
-        this.nombre = nombre;
-        this.fecha = Calendar.getInstance().getTime();
+        this.name = nombre;
+        this.date = Calendar.getInstance().getTime();
+        this.location = new Location();
+        
     }
-    
-    
     
     public long getId() {
         return id;
@@ -38,20 +37,20 @@ public class Party {
         this.id = id;
     }
 
-    public long getLatitud() {
-        return latitud;
+    public long getLatitude() {
+        return location.getLatitude();
     }
 
-    public void setLatitud(long latitud) {
-        this.latitud = latitud;
+    public void setLatitude(long latitud) {
+        this.location.setLatitude(latitud);
     }
 
-    public long getLongitud() {
-        return longitud;
+    public long getLongitude() {
+        return location.getLongitude();
     }
 
-    public void setLongitud(long longitud) {
-        this.longitud = longitud;
+    public void setLongitude(long longitud) {
+        this.location.setLongitude(longitud);
     }
 
     public float getCover() {
@@ -62,19 +61,28 @@ public class Party {
         this.cover = cover;
     }
 
-    public Date getFecha() {
-        return fecha;
+    
+}
+
+class Location{
+    private long latitude;
+    private long longitude;
+
+    public long getLatitude() {
+        return latitude;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
     }
 
-    public String getNombre() {
-        return nombre;
+    public long getLongitude() {
+        return longitude;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
     }
+
+    
 }

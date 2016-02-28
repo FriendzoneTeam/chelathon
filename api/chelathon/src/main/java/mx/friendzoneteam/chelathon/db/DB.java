@@ -20,9 +20,6 @@ public class DB {
     public static List<Party> getPartys() {
         if(fiestas==null)
             fiestas = new ArrayList<>();
-        //fiestas= new ArrayList<>();
-        //fiestas.add(new Party("Test"));
-        
         return fiestas;
     }
 
