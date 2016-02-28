@@ -1,4 +1,4 @@
-package mx.friendzoneteam.chelathon;
+package mx.friendzoneteam.chelathon.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,40 +10,42 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import mx.friendzoneteam.chelathon.R;
+import mx.friendzoneteam.chelathon.model.Venue;
 
 /**
  * Created by gianpa on 2/27/16.
  */
-public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.ViewHolder> {
-    private List<Party> partyList;
+public class VenueListAdapter extends RecyclerView.Adapter<VenueListAdapter.ViewHolder> {
+    private List<Venue> venueList;
 
-    public PartyListAdapter() {
+    public VenueListAdapter() {
         this(null);
     }
 
-    public PartyListAdapter(List<Party> partyList) {
-        this.partyList = partyList;
+    public VenueListAdapter(List<Venue> venueList) {
+        this.venueList = venueList;
     }
 
-    public void swapPartyList(List<Party> partyList) {
-        this.partyList = partyList;
+    public void swapPartyList(List<Venue> venueList) {
+        this.venueList = venueList;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_party, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_venue, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.name.setText(partyList.get(position).name);
+        holder.name.setText(venueList.get(position).name);
     }
 
     @Override
     public int getItemCount() {
-        if(partyList != null) {
-            return partyList.size();
+        if (venueList != null) {
+            return venueList.size();
         }
 
         return 0;

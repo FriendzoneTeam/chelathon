@@ -1,4 +1,4 @@
-package mx.friendzoneteam.chelathon;
+package mx.friendzoneteam.chelathon.model;
 
 /**
  * Created by gianpa on 2/27/16.
@@ -6,5 +6,5 @@ package mx.friendzoneteam.chelathon;
 public class Party {
     public int id;
     public String name;
-    public Location location;
+    public Venue venue;
 }
