@@ -7,48 +7,41 @@ import (
 	"upper.io/db.v2"
 	"upper.io/db.v2/mongo"
 )
-
-func AddParty(c *gin.Context) {
-	//Setting de la coneccion a mongo
-	var settings = mongo.ConnectionURL{
+//Setting de la coneccion a mongo
+	var settings = mongo.ConnectionURL {
 		Address:  db.Host("ds049945.mongolab.com:49945"), // MongoDB hostname.
 		Database: "socialgopher",                         // Database name.
 		User:     "friendzonedb",                         // Optional user name.
 		Password: "friendzonedb",                         // Optional user password.
 	}
+
+
+func AddParty(c *gin.Context) {
 	
+
 	sess, err := db.Open(mongo.Adapter, settings)
 	if err != nil {
 		log.Fatalf("db.Open(): %q\n", err)
 	}
 	defer sess.Close()
 
+	// Parametros del POST
+	name := c.PostForm("name")
+
 	// Scheduler
-	lCollection, err := sess.Collections()
-	if len(lCollection) != 0 {
-		log.Println("Existe la collection")
-		partyCollection, err := sess.Collection("parties")
-		if err != nil {
-			log.Fatalf("Could not use collection: %q\n", err)
-		}
-		var parties []models.Party
-		// Parametros del POST
-		name := c.PostForm("name")
-		// Nuestro nuevo registro 
-		reg := new(models.Party)
-		reg.Name = name
-		reg.Fecha = "new Date()"
-		reg.Location = models.Locations{}
-
-		var res db.Result
-		partyCollection.Append(reg)
-		c.JSON(200, reg)
-	} else {
-		log.Println("No existe la collection")
+	partyCollection, err := sess.Collection("parties")
+	if err != nil {
+		log.Fatalf("Could not use collection: %q\n", err)
 	}
-
 	
-	c.JSON(200, name)
+	// Nuestro nuevo registro 
+	reg := new(models.Party)
+	reg.Name = name
+	reg.Fecha = "new Date()"
+	reg.Location = models.Locations{}
+
+	partyCollection.Append(reg)
+	c.JSON(200, reg)
 }
 
 func GetParties(c *gin.Context) {

@@ -9,11 +9,11 @@ type Party struct{
 	Id int
 	Name string
 	Location Locations
-	Cover float
+	Cover float64
 	Fecha string
 }
 
-type Venue {
+type Venue struct {
 	Name string
 	Location Locations
 	Dir1 string
@@ -30,6 +30,6 @@ type Person struct {
 
 type Pool struct {
 	Id_user int
-	Cuota	float
+	Cuota	float64
 	id_party int
 }

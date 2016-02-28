@@ -8,6 +8,6 @@ import (
 func main() {
 	r := gin.Default()
 	
-    r.GET("/parties", Party.AddParty)
+    r.POST("/parties", Party.AddParty)
     r.Run()
 }
