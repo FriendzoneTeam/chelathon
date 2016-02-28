@@ -27,12 +27,9 @@ public class Rutas {
         
         //Agrega una party
         post("/parties", (req, res) -> {
-            System.out.println(req.contentType());
-            System.out.println(req.params());
-            System.out.println(req.raw());
-            System.out.println(req);
-            
-            Party p=PartysDAO.addParty("ok");
+            //System.out.println(req.queryParams("name"));
+            String name=req.queryParams("name");
+            Party p=PartysDAO.addParty(name);
                         
             return p;
         },new JsonTransformer());
