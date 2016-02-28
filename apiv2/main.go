@@ -1,13 +1,13 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	Party "chelathon/apiv2/routes/party"
+)
 
 func main() {
 	r := gin.Default()
-	r.GET("/parties", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "pong",
-        })
-    })
+	
+    r.GET("/parties", Party.AddParty)
     r.Run()
 }

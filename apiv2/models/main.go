@@ -10,7 +10,7 @@ type Party struct{
 	Name string
 	Location Locations
 	Cover float
-	fecha string
+	Fecha string
 }
 
 type Venue {
