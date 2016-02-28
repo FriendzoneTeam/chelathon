@@ -27,8 +27,8 @@ type Venue struct {
 	Location Locations
 	Dir1 string
 	Dir2 string
-	id_owner int
-	id_party int
+	Id_owner int64
+	Id_party int64
 }
 
 type Person struct {
